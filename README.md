@@ -1,28 +1,31 @@
 # UK Planning Portal Scrapers
 
-Python scripts that collect planning application data from UK local council planning portals and export it to Excel for review and analysis.
+Python and Selenium scripts that collect planning applications from UK local council planning portals. Each script searches the portal across a date range, opens every application, saves its details as text files and downloads its documents into a tidy folder per application.
 
 ## Supported portals
 
-| Council | Portal |
-|---|---|
-| Adur and Worthing | planning.adur-worthing.gov.uk |
-| Babergh and Mid Suffolk | planning.baberghmidsuffolk.gov.uk |
-| Barnet | publicaccess.barnet.gov.uk |
+| Council | Portal | Script |
+|---|---|---|
+| Adur and Worthing | planning.adur-worthing.gov.uk | adur_worthing_scraper.py |
+| Babergh and Mid Suffolk | planning.baberghmidsuffolk.gov.uk | babergh_mid_suffolk_scraper.py |
+| Barnet | publicaccess.barnet.gov.uk | barnet_scraper.py |
 
-## Contents
+## What each script does
 
-| File | Purpose |
-|---|---|
-| planning.*.py | Scraper for each council portal |
-| Monitor.py | Monitors portals for new applications |
-| Python install.txt | Setup notes for the required Python packages |
+1. Opens the council's advanced search and walks through the chosen date range.
+2. For every application, saves the summary, further information and other detail tabs as text files.
+3. Downloads the application documents, waits for each download to finish and extracts zip or rar archives.
+4. Writes a timestamped log of every step.
 
-## Requirements
+Monitor.py watches the running scraper processes and restarts any that stop, so long runs can be left unattended.
 
-- Python 3
-- Selenium and a matching browser driver
-- openpyxl or pandas for Excel output
+## Setup
+
+```
+py -m pip install selenium webdriver-manager python-dateutil patool rarfile pyzipper psutil selenium-stealth
+```
+
+Microsoft Edge must be installed. Python install.txt lists the full setup steps.
 
 ## Author
 
